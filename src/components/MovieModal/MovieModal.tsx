@@ -11,7 +11,7 @@ export default function MovieModal({
   onClose,
 }: MovieModalProps) {
   return (
-    <div className={css.overlay} onClick={onClose}>
+    <div className={css.backdrop} onClick={onClose}>
       <div
         className={css.modal}
         onClick={e => e.stopPropagation()}

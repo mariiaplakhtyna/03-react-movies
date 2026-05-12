@@ -13,9 +13,7 @@ export default function App() {
   const [query, setQuery] = useState('');
   const [isLoading, setIsLoading] = useState(false);
   const [isError, setIsError] = useState(false);
-
-  const [selectedMovie, setSelectedMovie] =
-    useState<Movie | null>(null);
+  const [selectedMovie, setSelectedMovie] = useState<Movie | null>(null);
 
   useEffect(() => {
     if (!query) return;
@@ -26,7 +24,6 @@ export default function App() {
         setIsError(false);
 
         const data = await fetchMovies(query);
-
         setMovies(data);
       } catch {
         setIsError(true);
@@ -47,16 +44,12 @@ export default function App() {
       {isError && <ErrorMessage />}
 
       {!isLoading && !isError && movies.length > 0 && (
-        <MovieGrid
-          movies={movies}
-          onSelect={setSelectedMovie}
-        />
+        <MovieGrid movies={movies} onSelect={setSelectedMovie} />
       )}
 
-      {!isLoading &&
-        !isError &&
-        query &&
-        movies.length === 0 && <p>No movies found.</p>}
+      {!isLoading && !isError && query && movies.length === 0 && (
+        <p>No movies found.</p>
+      )}
 
       {selectedMovie && (
         <MovieModal
@@ -67,4 +60,3 @@ export default function App() {
     </div>
   );
 }
-
