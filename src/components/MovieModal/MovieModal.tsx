@@ -14,7 +14,7 @@ export default function MovieModal({
     <div className={css.backdrop} onClick={onClose}>
       <div
         className={css.modal}
-        onClick={e => e.stopPropagation()}
+        onClick={(e) => e.stopPropagation()}
       >
         <img
           className={css.image}
