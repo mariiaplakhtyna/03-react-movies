@@ -1,10 +1,10 @@
 import { useEffect, useState } from 'react';
-import SearchBar from './components/App/SearchBar/SearchBar';
-import MovieGrid from './components/App/MovieGrid/MovieGrid';
-import Loader from './components/Loader/Loader';
-import ErrorMessage from './components/ErrorMessage/ErrorMessage';
-import { fetchMovies } from './services/movieService';
-import type { Movie } from './types/movie';
+import SearchBar from '../SearchBar/SearchBar';
+import MovieGrid from '../MovieGrid/MovieGrid';
+import Loader from '../Loader/Loader';
+import ErrorMessage from '../ErrorMessage/ErrorMessage';
+import { fetchMovies } from '../../services/movieService';
+import type { Movie } from '../../types/movie';
 
 export default function App() {
   const [movies, setMovies] = useState<Movie[]>([]);
