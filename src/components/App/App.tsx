@@ -3,6 +3,8 @@ import SearchBar from '../SearchBar/SearchBar';
 import MovieGrid from '../MovieGrid/MovieGrid';
 import Loader from '../Loader/Loader';
 import ErrorMessage from '../ErrorMessage/ErrorMessage';
+import MovieModal from '../MovieModal/MovieModal';
+
 import { fetchMovies } from '../../services/movieService';
 import type { Movie } from '../../types/movie';
 
@@ -11,6 +13,9 @@ export default function App() {
   const [query, setQuery] = useState('');
   const [isLoading, setIsLoading] = useState(false);
   const [isError, setIsError] = useState(false);
+
+  const [selectedMovie, setSelectedMovie] =
+    useState<Movie | null>(null);
 
   useEffect(() => {
     if (!query) return;
@@ -21,6 +26,7 @@ export default function App() {
         setIsError(false);
 
         const data = await fetchMovies(query);
+
         setMovies(data);
       } catch {
         setIsError(true);
@@ -37,14 +43,27 @@ export default function App() {
       <SearchBar onSubmit={setQuery} />
 
       {isLoading && <Loader />}
-      {isError && <ErrorMessage />}
-      {!isLoading && !isError && movies.length > 0 && (
-  <MovieGrid movies={movies} />
-)}
 
-{!isLoading && !isError && query && movies.length === 0 && (
-  <p>No movies found.</p>
-)}
+      {isError && <ErrorMessage />}
+
+      {!isLoading && !isError && movies.length > 0 && (
+        <MovieGrid
+          movies={movies}
+          onSelect={setSelectedMovie}
+        />
+      )}
+
+      {!isLoading &&
+        !isError &&
+        query &&
+        movies.length === 0 && <p>No movies found.</p>}
+
+      {selectedMovie && (
+        <MovieModal
+          movie={selectedMovie}
+          onClose={() => setSelectedMovie(null)}
+        />
+      )}
     </div>
   );
 }
